@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | 木の家具工房 ORDER MADE FURNITURE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#F4EFE4',
+          'cream-2': '#ECE4D3',
+          paper: '#FBF8F1',
+          ink: '#2B2620',
+          'ink-soft': '#5C5548',
+          'ink-faint': '#8C8474',
+          'wood-lt': '#D8C3A0',
+          wood: '#B08A5C',
+          'wood-dk': '#7A5A38',
+          'wood-dkr': '#5C4127',
+          forest: '#28352A',
+          'forest-dk': '#1B241C',
+          line: '#DBD0B9',
+          'line-soft': '#E7DFCB',
+        },
+        fontFamily: {
+          serif: ['"Shippori Mincho"', 'serif'],
+          sans: ['"Noto Sans JP"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #F4EFE4;
+    color: #2B2620;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wood-pattern {
+    background: repeating-linear-gradient(100deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, transparent 2px, transparent 34px),
+                linear-gradient(150deg, #B08A5C 0%, #7A5A38 55%, #5C4127 100%);
+  }
+</style>
+</head>
+<body class="bg-cream text-ink flex flex-col min-h-screen">
+
+<header class="sticky top-0 z-50 bg-[#F4EFE4]/92 backdrop-blur-md border-b border-line">
+  <div class="max-w-[1180px] mx-auto px-6 md:px-12 flex items-center justify-between h-[78px]">
+    <a class="flex items-center gap-3" href="index.html">
+      <div class="w-[34px] h-[34px] border border-ink flex items-center justify-center font-serif text-sm">木</div>
+      <div>
+        <div class="font-serif text-base font-semibold tracking-[0.04em]">木の家具工房</div>
+        <div class="text-[9px] tracking-[0.18em] text-ink-faint mt-0.5">ORDER MADE FURNITURE</div>
+      </div>
+    </a>
+    <nav class="hidden md:block">
+      <ul class="flex gap-[34px] list-none">
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#top">ホーム</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#about">私たちについて</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#furniture">家具の紹介</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#material">素材について</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#flow">製作の流れ</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#works">実績</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink-soft hover:text-ink pb-1 relative transition-colors" href="index.html#maintenance">メンテナンス</a></li>
+        <li><a class="text-[10px] tracking-[0.04em] text-ink font-medium pb-1 relative transition-colors border-b border-ink" href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </nav>
+    <div class="md:hidden flex flex-col justify-between w-[22px] h-[14px] cursor-pointer" id="mobileMenuBtn">
+      <span class="block h-[1px] bg-ink w-full"></span>
+      <span class="block h-[1px] bg-ink w-full"></span>
+      <span class="block h-[1px] bg-ink w-full"></span>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Modal / Drawer -->
+<div id="mobileDrawer" class="fixed inset-0 bg-forest/95 z-50 flex flex-col justify-center items-center text-paper opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+  <button id="closeDrawerBtn" class="absolute top-6 right-6 text-paper text-2xl p-2">&times;</button>
+  <ul class="flex flex-col gap-6 text-center font-serif text-lg">
+    <li><a href="index.html#top" class="mobile-nav-link">ホーム</a></li>
+    <li><a href="index.html#about" class="mobile-nav-link">私たちについて</a></li>
+    <li><a href="index.html#furniture" class="mobile-nav-link">家具の紹介</a></li>
+    <li><a href="index.html#material" class="mobile-nav-link">素材について</a></li>
+    <li><a href="index.html#flow" class="mobile-nav-link">製作の流れ</a></li>
+    <li><a href="index.html#works" class="mobile-nav-link">実績</a></li>
+    <li><a href="index.html#maintenance" class="mobile-nav-link">メンテナンス</a></li>
+    <li><a href="contact.html" class="mobile-nav-link text-wood-lt">お問い合わせ</a></li>
+  </ul>
+</div>
+
+<section class="py-16 md:py-24 bg-cream-2 border-b border-line">
+  <div class="max-w-[1180px] mx-auto px-6 md:px-12 text-center">
+    <span class="font-serif text-xs tracking-[0.28em] text-wood-dk pb-2 border-b border-wood-lt inline-block mb-4">CONTACT</span>
+    <h1 class="font-serif font-semibold text-3xl md:text-4xl text-ink tracking-wide mb-4">お問い合わせ・ご相談</h1>
+    <p class="text-ink-soft text-sm md:text-base max-w-[600px] mx-auto leading-relaxed">
+      オーダーメイド家具のご相談、お見積り、樹種やメンテナンスについてなど、<br class="hidden sm:inline">どうぞお気軽にお問い合わせください。
+    </p>
+  </div>
+</section>
+
+<main class="flex-grow py-16 md:py-24">
+  <div class="max-w-[800px] mx-auto px-6 md:px-12">
+    
+    <!-- Form Card -->
+    <div id="formContainer" class="bg-paper p-8 md:p-14 border border-line shadow-sm rounded-sm">
+      <div class="mb-10 text-center md:text-left border-b border-line pb-6">
+        <h2 class="font-serif text-xl md:text-2xl font-semibold mb-2 text-ink">オーダー・ご相談フォーム</h2>
+        <p class="text-xs text-ink-soft">以下のフォームに必要事項をご入力の上、「確認画面へ」にお進みください。担当者より2営業日以内にご連絡いたします。</p>
+      </div>
+
+      <!-- Form Error Notice (Dynamic) -->
+      <div id="formErrorBox" class="hidden mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-xs rounded-sm">
+        必須項目の入力漏れや不備があります。赤字の項目をご確認ください。
+      </div>
+
+      <form id="inquiryForm" class="space-y-8" novalidate>
+        
+        <!-- Inquiry Type -->
+        <div>
+          <label class="block font-serif text-sm font-medium text-ink mb-3">
+            ご相談項目 <span class="text-xs text-red-600 bg-red-50 px-1.5 py-0.5 ml-1 rounded">必須</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-center gap-3 p-3 border border-line rounded-sm cursor-pointer hover:bg-cream/40 transition-colors">
+              <input type="checkbox" name="inquiryType" value="オーダー家具のご相談・お見積り" class="accent-wood-dk w-4 h-4">
+              <span class="text-xs text-ink-soft">オーダー家具のご相談・お見積り</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 border border-line rounded-sm cursor-pointer hover:bg-cream/40 transition-colors">
+              <input type="checkbox" name="inquiryType" value="既存家具のメンテナンス・修理" class="accent-wood-dk w-4 h-4">
+              <span class="text-xs text-ink-soft">既存家具のメンテナンス・修理</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 border border-line rounded-sm cursor-pointer hover:bg-cream/40 transition-colors">
+              <input type="checkbox" name="inquiryType" value="素材・樹種に関するご質問" class="accent-wood-dk w-4 h-4">
+              <span class="text-xs text-ink-soft">素材・樹種に関するご質問</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 border border-line rounded-sm cursor-pointer hover:bg-cream/40 transition-colors">
+              <input type="checkbox" name="inquiryType" value="その他のお問い合わせ" class="accent-wood-dk w-4 h-4">
+              <span class="text-xs text-ink-soft">その他のお問い合わせ</span>
+            </label>
+          </div>
+          <p id="error-inquiryType" class="text-red-600 text-[11px] mt-1.5 hidden">ご相談項目を少なくとも1つ選択してください。</p>
+        </div>
+
+        <!-- Name & Kana -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-serif text-sm font-medium text-ink mb-2">
+              お名前 <span class="text-xs text-red-600 bg-red-50 px-1.5 py-0.5 ml-1 rounded">必須</span>
+            </label>
+            <input type="text" id="name" name="name" placeholder="例：木村 太郎" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm">
+            <p id="error-name" class="text-red-600 text-[11px] mt-1.5 hidden">お名前を入力してください。</p>
+          </div>
+          <div>
+            <label class="block font-serif text-sm font-medium text-ink mb-2">
+              フリガナ <span class="text-xs text-red-600 bg-red-50 px-1.5 py-0.5 ml-1 rounded">必須</span>
+            </label>
+            <input type="text" id="kana" name="kana" placeholder="例：キムラ タロウ" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm">
+            <p id="error-kana" class="text-red-600 text-[11px] mt-1.5 hidden">フリガナを入力してください。</p>
+          </div>
+        </div>
+
+        <!-- Email & Phone -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-serif text-sm font-medium text-ink mb-2">
+              メールアドレス <span class="text-xs text-red-600 bg-red-50 px-1.5 py-0.5 ml-1 rounded">必須</span>
+            </label>
+            <input type="email" id="email" name="email" placeholder="例：taro@example.com" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm">
+            <p id="error-email" class="text-red-600 text-[11px] mt-1.5 hidden">有効なメールアドレスを入力してください。</p>
+          </div>
+          <div>
+            <label class="block font-serif text-sm font-medium text-ink mb-2">
+              お電話番号
+            </label>
+            <input type="tel" id="phone" name="phone" placeholder="例：090-1234-5678" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm">
+          </div>
+        </div>
+
+        <!-- Wood Species Preference -->
+        <div>
+          <label class="block font-serif text-sm font-medium text-ink mb-2">
+            ご希望の樹種（気になる素材）
+          </label>
+          <select id="woodType" name="woodType" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm text-ink-soft">
+            <option value="">選択してください</option>
+            <option value="オーク (Oak)">オーク（明るく力強い木目、耐久性に優れる）</option>
+            <option value="ウォールナット (Walnut)">ウォールナット（重厚感と深みのある色合い）</option>
+            <option value="チェリー (Cherry)">チェリー（使い込むほどに艶が増す赤褐色）</option>
+            <option value="その他・おまかせ">その他・まだ決まっていないので相談したい</option>
+          </select>
+        </div>
+
+        <!-- Budget Range -->
+        <div>
+          <label class="block font-serif text-sm font-medium text-ink mb-2">
+            ご予算の目安
+          </label>
+          <select id="budget" name="budget" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm text-ink-soft">
+            <option value="">選択してください</option>
+            <option value="〜10万円">〜10万円</option>
+            <option value="10万円〜30万円">10万円〜30万円</option>
+            <option value="30万円〜50万円">30万円〜50万円</option>
+            <option value="50万円〜100万円">50万円〜100万円</option>
+            <option value="100万円以上">100万円以上</option>
+            <option value="未定・相談して決めたい">未定・相談して決めたい</option>
+          </select>
+        </div>
+
+        <!-- Message / Details -->
+        <div>
+          <label class="block font-serif text-sm font-medium text-ink mb-2">
+            ご相談内容・ご要望詳細 <span class="text-xs text-red-600 bg-red-50 px-1.5 py-0.5 ml-1 rounded">必須</span>
+          </label>
+          <textarea id="message" name="message" rows="6" placeholder="作りたい家具の種類（テーブル、キャビネット等）、大まかなサイズ感、設置場所、気になっていることなどをご自由にお書きください。" class="w-full bg-cream/30 border border-line p-3 text-sm focus:outline-none focus:border-wood transition-colors rounded-sm"></textarea>
+          <p id="error-message" class="text-red-600 text-[11px] mt-1.5 hidden">ご相談内容を入力してください。</p>
+        </div>
+
+        <!-- Privacy Policy agreement -->
+        <div class="pt-4 border-t border-line">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" id="privacyAgree" name="privacyAgree" class="accent-wood-dk w-4 h-4 mt-1">
+            <span class="text-xs text-ink-soft leading-relaxed">
+              <a href="#" class="underline text-ink hover:text-wood-dk">プライバシーポリシー</a>に同意の上、送信します。
+            </span>
+          </label>
+          <p id="error-privacy" class="text-red-600 text-[11px] mt-1.5 hidden">プライバシーポリシーへの同意が必要です。</p>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center pt-6">
+          <button type="button" id="submitBtn" class="inline-flex items-center gap-3 font-serif text-sm tracking-[0.06em] py-4 px-12 border border-ink bg-ink text-paper hover:bg-forest hover:border-forest transition-all duration-300 rounded-sm shadow-sm cursor-pointer">
+            <span>確認画面へ進む</span>
+            <span class="transition-transform duration-300">→</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Confirmation View (Hidden by default) -->
+    <div id="confirmContainer" class="hidden bg-paper p-8 md:p-14 border border-line shadow-sm rounded-sm">
+      <div class="mb-8 text-center border-b border-line pb-6">
+        <span class="font-serif text-xs tracking-[0.28em] text-wood-dk mb-2 block">CONFIRMATION</span>
+        <h2 class="font-serif text-xl md:text-2xl font-semibold mb-2 text-ink">入力内容のご確認</h2>
+        <p class="text-xs text-ink-soft">以下の内容で間違いがなければ「送信する」ボタンを押してください。</p>
+      </div>
+
+      <div class="space-y-6 text-sm text-ink mb-10 bg-cream/20 p-6 rounded-sm border border-line-soft">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">ご相談項目</span>
+          <span id="conf-inquiryType" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">お名前</span>
+          <span id="conf-name" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">フリガナ</span>
+          <span id="conf-kana" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">メールアドレス</span>
+          <span id="conf-email" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">お電話番号</span>
+          <span id="conf-phone" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">ご希望の樹種</span>
+          <span id="conf-woodType" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-b border-line pb-4">
+          <span class="font-serif font-medium text-ink-soft">ご予算の目安</span>
+          <span id="conf-budget" class="md:col-span-2 text-ink"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <span class="font-serif font-medium text-ink-soft">ご相談内容</span>
+          <span id="conf-message" class="md:col-span-2 text-ink whitespace-pre-wrap"></span>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <button type="button" id="backBtn" class="font-serif text-xs tracking-[0.06em] py-3.5 px-8 border border-ink text-ink bg-transparent hover:bg-ink hover:text-paper transition-all rounded-sm cursor-pointer">
+          ← 修正する
+        </button>
+        <button type="button" id="sendBtn" class="font-serif text-xs tracking-[0.06em] py-3.5 px-10 border border-ink bg-forest text-paper hover:bg-forest-dk transition-all rounded-sm shadow-sm cursor-pointer">
+          送信を完了する ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- Success Completion View (Hidden by default) -->
+    <div id="successContainer" class="hidden bg-paper p-10 md:p-16 border border-line shadow-sm rounded-sm text-center">
+      <div class="w-16 h-16 bg-forest text-paper rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif">木</div>
+      <span class="font-serif text-xs tracking-[0.28em] text-wood-dk mb-3 block">THANK YOU</span>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold mb-4 text-ink">お問い合わせを受け付けました</h2>
+      <p class="text-ink-soft text-sm md:text-base max-w-[500px] mx-auto leading-relaxed mb-8">
+        お問い合わせいただき、誠にありがとうございます。<br>
+        ご入力いただいたメールアドレス宛に受付確認メールを送信いたしました。内容を確認次第、担当者より折り返しご連絡いたします。
+      </p>
+      <a href="index.html" class="inline-flex items-center gap-3 font-serif text-sm tracking-[0.06em] py-4 px-10 border border-ink bg-ink text-paper hover:bg-forest hover:border-forest transition-all rounded-sm">
+        <span>トップページに戻る</span>
+        <span>→</span>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="bg-paper border-t border-line py-12 mt-auto">
+  <div class="max-w-[1180px] mx-auto px-6 md:px-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+      <a class="flex items-center gap-3" href="index.html">
+        <div class="w-[34px] h-[34px] border border-ink flex items-center justify-center font-serif text-sm">木</div>
+        <div>
+          <div class="font-serif text-base font-semibold tracking-[0.04em]">木の家具工房</div>
+          <div class="text-[9px] tracking-[0.18em] text-ink-faint mt-0.5">ORDER MADE FURNITURE</div>
+        </div>
+      </a>
+      <nav>
+        <ul class="flex flex-wrap gap-6 list-none">
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#top">ホーム</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#about">私たちについて</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#furniture">家具の紹介</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#material">素材について</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#flow">製作の流れ</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#works">実績</a></li>
+          <li><a class="text-xs text-ink-soft hover:text-ink transition-colors" href="index.html#maintenance">メンテナンス</a></li>
+          <li><a class="text-xs text-ink hover:text-ink transition-colors font-medium" href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center text-xs text-ink-faint gap-4 pt-6 border-t border-line-soft">
+      <span>© 2026 木の家具工房 All Rights Reserved.</span>
+      <div class="flex gap-4">
+        <span class="w-[30px] h-[30px] border border-line rounded-full flex items-center justify-center text-xs text-ink-soft">IG</span>
+        <span class="w-[30px] h-[30px] border border-line rounded-full flex items-center justify-center text-xs text-ink-soft">X</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile Navigation Toggle */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (mobileMenuBtn && mobileDrawer) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+    });
+    closeDrawerBtn.addEventListener('click', () => {
+      mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+    });
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+      });
+    });
+  }
+
+  /* Form Validation & Step Switcher Logic */
+  const formContainer = document.getElementById('formContainer');
+  const confirmContainer = document.getElementById('confirmContainer');
+  const successContainer = document.getElementById('successContainer');
+  const submitBtn = document.getElementById('submitBtn');
+  const backBtn = document.getElementById('backBtn');
+  const sendBtn = document.getElementById('sendBtn');
+  const formErrorBox = document.getElementById('formErrorBox');
+
+  // Input elements
+  const nameInput = document.getElementById('name');
+  const kanaInput = document.getElementById('kana');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  const privacyAgree = document.getElementById('privacyAgree');
+  const woodTypeSelect = document.getElementById('woodType');
+  const budgetSelect = document.getElementById('budget');
+
+  // Error spans
+  const errInquiry = document.getElementById('error-inquiryType');
+  const errName = document.getElementById('error-name');
+  const errKana = document.getElementById('error-kana');
+  const errEmail = document.getElementById('error-email');
+  const errMessage = document.getElementById('error-message');
+  const errPrivacy = document.getElementById('error-privacy');
+
+  let formDataCache = {};
+
+  submitBtn.addEventListener('click', () => {
+    let hasError = false;
+
+    // Check inquiryType checkboxes
+    const inquiryCheckboxes = document.querySelectorAll('input[name="inquiryType"]:checked');
+    if (inquiryCheckboxes.length === 0) {
+      errInquiry.classList.remove('hidden');
+      hasError = true;
+    } else {
+      errInquiry.classList.add('hidden');
+    }
+
+    // Check name
+    if (!nameInput.value.trim()) {
+      errName.classList.remove('hidden');
+      nameInput.classList.add('border-red-500');
+      hasError = true;
+    } else {
+      errName.classList.add('hidden');
+      nameInput.classList.remove('border-red-500');
+    }
+
+    // Check kana
+    if (!kanaInput.value.trim()) {
+      errKana.classList.remove('hidden');
+      kanaInput.classList.add('border-red-500');
+      hasError = true;
+    } else {
+      errKana.classList.add('hidden');
+      kanaInput.classList.remove('border-red-500');
+    }
+
+    // Check email
+    const emailVal = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRegex.test(emailVal)) {
+      errEmail.classList.remove('hidden');
+      emailInput.classList.add('border-red-500');
+      hasError = true;
+    } else {
+      errEmail.classList.add('hidden');
+      emailInput.classList.remove('border-red-500');
+    }
+
+    // Check message
+    if (!messageInput.value.trim()) {
+      errMessage.classList.remove('hidden');
+      messageInput.classList.add('border-red-500');
+      hasError = true;
+    } else {
+      errMessage.classList.add('hidden');
+      messageInput.classList.remove('border-red-500');
+    }
+
+    // Check privacy policy
+    if (!privacyAgree.checked) {
+      errPrivacy.classList.remove('hidden');
+      hasError = true;
+    } else {
+      errPrivacy.classList.add('hidden');
+    }
+
+    if (hasError) {
+      formErrorBox.classList.remove('hidden');
+      window.scrollTo({ top: formContainer.offsetTop - 100, behavior: 'smooth' });
+      return;
+    }
+
+    formErrorBox.classList.add('hidden');
+
+    // Collect data for confirmation view
+    const selectedTypes = Array.from(inquiryCheckboxes).map(cb => cb.value).join('、');
+    formDataCache = {
+      inquiryType: selectedTypes,
+      name: nameInput.value.trim(),
+      kana: kanaInput.value.trim(),
+      email: emailInput.value.trim(),
+      phone: document.getElementById('phone').value.trim() || '未入力',
+      woodType: woodTypeSelect.value ? woodTypeSelect.options[woodTypeSelect.selectedIndex].text : '指定なし',
+      budget: budgetSelect.value ? budgetSelect.value : '指定なし',
+      message: messageInput.value.trim()
+    };
+
+    // Populate confirmation DOM elements
+    document.getElementById('conf-inquiryType').textContent = formDataCache.inquiryType;
+    document.getElementById('conf-name').textContent = formDataCache.name;
+    document.getElementById('conf-kana').textContent = formDataCache.kana;
+    document.getElementById('conf-email').textContent = formDataCache.email;
+    document.getElementById('conf-phone').textContent = formDataCache.phone;
+    document.getElementById('conf-woodType').textContent = formDataCache.woodType;
+    document.getElementById('conf-budget').textContent = formDataCache.budget;
+    document.getElementById('conf-message').textContent = formDataCache.message;
+
+    // Switch view
+    formContainer.classList.add('hidden');
+    confirmContainer.classList.remove('hidden');
+    window.scrollTo({ top: 150, behavior: 'smooth' });
+  });
+
+  backBtn.addEventListener('click', () => {
+    confirmContainer.classList.add('hidden');
+    formContainer.classList.remove('hidden');
+    window.scrollTo({ top: 150, behavior: 'smooth' });
+  });
+
+  sendBtn.addEventListener('click', () => {
+    // Simulate successful submission transition
+    sendBtn.disabled = true;
+    sendBtn.textContent = '送信中...';
+    
+    setTimeout(() => {
+      confirmContainer.classList.add('hidden');
+      successContainer.classList.remove('hidden');
+      window.scrollTo({ top: 150, behavior: 'smooth' });
+    }, 800);
+  });
+</script>
+
+</body>
+</html>

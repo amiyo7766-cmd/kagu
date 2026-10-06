@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>木の家具工房 | ORDER MADE FURNITURE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4EFE4;
+    --cream-2:#ECE4D3;
+    --paper:#FBF8F1;
+    --ink:#2B2620;
+    --ink-soft:#5C5548;
+    --ink-faint:#8C8474;
+    --wood-lt:#D8C3A0;
+    --wood:#B08A5C;
+    --wood-dk:#7A5A38;
+    --wood-dkr:#5C4127;
+    --forest:#28352A;
+    --forest-dk:#1B241C;
+    --line:#DBD0B9;
+    --line-soft:#E7DFCB;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans JP',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    font-weight:300;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;cursor:pointer;}
+  .serif{font-family:'Shippori Mincho',serif;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 48px;}
+  .eyebrow{
+    font-family:'Shippori Mincho',serif;
+    font-size:12px;
+    letter-spacing:0.28em;
+    color:var(--wood-dk);
+    margin-bottom:18px;
+    display:inline-block;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--wood-lt);
+  }
+  h2.headline{
+    font-family:'Shippori Mincho',serif;
+    font-weight:600;
+    font-size:34px;
+    line-height:1.6;
+    color:var(--ink);
+    margin-bottom:26px;
+  }
+  p.lead{
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:2.05;
+    max-width:520px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    font-family:'Shippori Mincho',serif;
+    font-size:14px;
+    letter-spacing:0.06em;
+    padding:16px 34px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    background:transparent;
+    transition:background .35s ease, color .35s ease, border-color .35s ease;
+  }
+  .btn:hover{background:var(--ink);color:var(--paper);}
+  .btn.on-dark{border-color:rgba(255,255,255,.55);color:var(--paper);}
+  .btn.on-dark:hover{background:var(--paper);color:var(--forest-dk);}
+  .btn .arrow{transition:transform .35s ease;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  /* wood texture placeholders */
+  .photo{
+    position:relative;
+    overflow:hidden;
+    background:
+      repeating-linear-gradient(100deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, transparent 2px, transparent 34px),
+      linear-gradient(150deg,var(--wood) 0%, var(--wood-dk) 55%, var(--wood-dkr) 100%);
+  }
+  .photo::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(0,0,0,.18), transparent 45%);
+    pointer-events:none;
+  }
+  .photo img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+  }
+  .photo.forest{background:
+      repeating-linear-gradient(95deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 2px, transparent 2px, transparent 30px),
+      linear-gradient(160deg,#3c4c3d 0%, var(--forest) 60%, var(--forest-dk) 100%);}
+  .photo.light{background:
+      repeating-linear-gradient(100deg, rgba(255,255,255,.35) 0px, rgba(255,255,255,.35) 2px, transparent 2px, transparent 30px),
+      linear-gradient(150deg,var(--wood-lt) 0%, var(--wood) 100%);}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,239,228,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0 48px;
+    display:flex;align-items:center;justify-content:space-between;
+    height:78px;
+  }
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-mark{
+    width:34px;height:34px;border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;background:var(--paper);
+  }
+  .logo-text .ja{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:600;letter-spacing:.04em;}
+  .logo-text .en{font-size:9px;letter-spacing:.18em;color:var(--ink-faint);margin-top:2px;}
+  nav ul{list-style:none;display:flex;gap:30px;}
+  nav a{font-size:11px;letter-spacing:.04em;color:var(--ink-soft);position:relative;padding-bottom:4px;}
+  nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transition:transform .3s ease;transform-origin:right;}
+  nav a:hover::after{transform:scaleX(1);transform-origin:left;}
+
+  /* Hero */
+  .hero{position:relative;height:640px;overflow:hidden;}
+  .hero .photo{position:absolute;inset:0;}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(100deg, rgba(20,16,10,.62) 0%, rgba(20,16,10,.38) 42%, rgba(20,16,10,.08) 70%);}
+  .hero-content{
+    position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 48px;
+    height:100%;display:flex;flex-direction:column;justify-content:center;color:var(--paper);
+  }
+  .hero-content .eyebrow{color:var(--wood-lt);border-color:rgba(255,255,255,.35);}
+  .hero-content h1{
+    font-family:'Shippori Mincho',serif;font-weight:600;
+    font-size:44px;line-height:1.55;margin-bottom:22px;
+  }
+  .hero-content p{font-size:14px;color:rgba(255,255,255,.82);line-height:2;margin-bottom:34px;max-width:400px;}
+
+  section{padding:110px 0;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:center;}
+  .about .split .photo{aspect-ratio:6/5;border-radius:2px;}
+  .material{background:var(--cream-2);}
+  .material .split{grid-template-columns:0.95fr 1.05fr;}
+  .material .photo{aspect-ratio:6/5;}
+  .swatches{display:flex;gap:14px;margin-top:26px;}
+  .swatch{flex:1;text-align:center;}
+  .swatch .chip{height:64px;border-radius:2px;margin-bottom:10px;}
+  .swatch .chip.oak{background:linear-gradient(160deg,#E4CE9F,#C6A467);}
+  .swatch .chip.walnut{background:linear-gradient(160deg,#7C5A3C,#4C331F);}
+  .swatch .chip.cherry{background:linear-gradient(160deg,#B87950,#87502E);}
+  .swatch span{font-size:11px;color:var(--ink-soft);letter-spacing:.03em;}
+
+  .furniture-head{max-width:640px;margin-bottom:56px;}
+  .furniture-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+  .fcard .photo{aspect-ratio:1/1;margin-bottom:22px;}
+  .fcard h3{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:600;margin-bottom:10px;letter-spacing:.03em;}
+  .fcard p{font-size:12.5px;color:var(--ink-soft);line-height:1.9;margin-bottom:16px;min-height:57px;}
+  .fcard .more{font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--ink);padding-bottom:2px;display:inline-block;}
+
+  .flow{background:var(--forest);color:var(--paper);}
+  .flow .eyebrow{color:var(--wood-lt);border-color:rgba(255,255,255,.3);}
+  .flow-head{max-width:640px;margin-bottom:64px;}
+  .flow-head h2{color:var(--paper);}
+  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
+  .flow-steps::before{content:'';position:absolute;top:26px;left:6%;right:6%;height:1px;background:rgba(255,255,255,.22);}
+  .fstep{position:relative;text-align:left;padding-right:20px;}
+  .fstep .num{
+    font-family:'Shippori Mincho',serif;font-size:15px;color:var(--forest-dk);
+    width:52px;height:52px;border-radius:50%;background:var(--wood-lt);
+    display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;z-index:1;
+  }
+  .fstep h4{font-family:'Shippori Mincho',serif;font-size:15px;font-weight:600;margin-bottom:10px;}
+  .fstep p{font-size:12px;color:rgba(255,255,255,.68);line-height:1.9;}
+
+  .craft-works{background:var(--cream-2);}
+  .cw-grid{display:grid;grid-template-columns:0.85fr 1fr 1fr;gap:0;align-items:stretch;}
+  .cw-photo{min-height:520px;}
+  .cw-col{padding:64px 46px;}
+  .cw-col + .cw-col{border-left:1px solid var(--line);}
+  .cw-col h3{font-family:'Shippori Mincho',serif;font-size:21px;font-weight:600;margin-bottom:20px;line-height:1.6;}
+  .cw-col p{font-size:13px;color:var(--ink-soft);line-height:2;margin-bottom:24px;}
+  .works-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+  .works-thumbs .photo{aspect-ratio:4/3;}
+
+  .mc-grid{display:grid;grid-template-columns:1fr 1.15fr;min-height:420px;}
+  .mc-photo{position:relative;}
+  .mc-photo .photo{position:absolute;inset:0;}
+  .mc-copy{padding:70px 60px;}
+  .mc-copy.dark{background:var(--forest);color:var(--paper);}
+  .mc-copy.dark .eyebrow{color:var(--wood-lt);border-color:rgba(255,255,255,.3);}
+  .mc-copy.dark h2{color:var(--paper);}
+  .mc-copy.dark p{color:rgba(255,255,255,.72);}
+  .mc-copy p{font-size:13.5px;color:var(--ink-soft);line-height:2.05;margin-bottom:30px;max-width:420px;}
+  section.maintenance-contact{padding:0;}
+
+  /* Footer */
+  footer{background:var(--paper);border-top:1px solid var(--line);padding:52px 0 34px;}
+  .foot-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px;flex-wrap:wrap;gap:24px;}
+  .foot-nav ul{list-style:none;display:flex;gap:26px;flex-wrap:wrap;}
+  .foot-nav a{font-size:12px;color:var(--ink-soft);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-faint);flex-wrap:wrap;gap:16px;}
+  .social{display:flex;gap:16px;}
+  .social span{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink-soft);}
+
+  /* SPA Detail Page styling */
+  .detail-view {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+  }
+  .detail-view.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-hero {
+    background: var(--forest);
+    color: var(--paper);
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--line);
+  }
+  .breadcrumb {
+    font-size: 11px;
+    color: var(--wood-lt);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.05em;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 13.5px;
+  }
+  .spec-table th, .spec-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+  .spec-table th {
+    width: 30%;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 500;
+    color: var(--wood-dk);
+    background: rgba(216, 195, 160, 0.15);
+  }
+  .spec-table td {
+    color: var(--ink-soft);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .gallery-item {
+    aspect-ratio: 4/3;
+    border-radius: 2px;
+  }
+
+  .tab-switcher {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    padding: 10px 22px;
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    border-radius: 2px;
+    transition: all .3s ease;
+    white-space: nowrap;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  @media (max-width:1020px){
+    .wrap,.nav-inner,.hero-content{padding:0 28px;}
+    nav ul{display:none;}
+    .furniture-grid{grid-template-columns:repeat(2,1fr);}
+    .flow-steps{grid-template-columns:repeat(2,1fr);row-gap:40px;}
+    .flow-steps::before{display:none;}
+    .cw-grid{grid-template-columns:1fr;}
+    .cw-photo{min-height:280px;}
+    .cw-col + .cw-col{border-left:none;border-top:1px solid var(--line);}
+    .mc-grid{grid-template-columns:1fr;}
+    .mc-photo{min-height:260px;}
+    .gallery-grid {grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="nav-inner">
+    <a class="logo" onclick="switchView('home')">
+      <span class="logo-mark">木</span>
+      <span class="logo-text">
+        <div class="ja">木の家具工房</div>
+        <div class="en">ORDER MADE FURNITURE</div>
+      </span>
+    </a>
+    <nav>
+      <ul>
+        <li><a onclick="switchView('home')">ホーム</a></li>
+        <li><a onclick="switchView('home', 'about')">私たちについて</a></li>
+        <li><a onclick="switchView('home', 'furniture')">家具の紹介</a></li>
+        <li><a onclick="switchView('home', 'material')">素材について</a></li>
+        <li><a onclick="switchView('home', 'flow')">製作の流れ</a></li>
+        <li><a onclick="switchView('home', 'works')">実績</a></li>
+        <li><a onclick="switchView('home', 'maintenance')">メンテナンス</a></li>
+        <li><a onclick="switchView('home', 'contact')">お問い合わせ</a></li>
+      </ul>
+    </nav>
+    <div id="category-switcher-nav" class="hidden md:flex items-center gap-2">
+      <span class="text-xs text-stone-500 mr-2">詳細切替:</span>
+      <button onclick="switchView('table')" class="text-xs px-3 py-1.5 border border-stone-300 rounded hover:bg-stone-800 hover:text-white transition">テーブル</button>
+      <button onclick="switchView('cabinet')" class="text-xs px-3 py-1.5 border border-stone-300 rounded hover:bg-stone-800 hover:text-white transition">キャビネット</button>
+      <button onclick="switchView('shelf')" class="text-xs px-3 py-1.5 border border-stone-300 rounded hover:bg-stone-800 hover:text-white transition">シェルフ</button>
+      <button onclick="switchView('chair')" class="text-xs px-3 py-1.5 border border-stone-300 rounded hover:bg-stone-800 hover:text-white transition">チェア</button>
+    </div>
+  </div>
+</header>
+
+<!-- ========================================== -->
+<!-- HOME VIEW -->
+<!-- ========================================== -->
+<div id="view-home" class="main-view active">
+  <section class="hero">
+    <div class="photo forest"><img src="https://placehold.co/1200x800/28352A/FBF8F1?text=Dining+Room" alt="木の温もりあふれるダイニングルームの写真"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <span class="eyebrow">ORDER MADE FURNITURE</span>
+      <h1>暮らしに寄り添う、<br>世界にひとつの家具。</h1>
+      <p>あなたの暮らしに合わせて、<br>あなたのためだけの家具を。</p>
+      <a class="btn on-dark" onclick="switchView('home', 'contact')">オーダー家具のご相談はこちら <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">ABOUT US</span>
+        <h2 class="headline">家具から、<br>暮らしをデザインする。</h2>
+        <p class="lead">
+          私たちは、木のぬくもりと職人の技術を大切にするオーダーメイド家具専門店です。<br><br>
+          「この場所にぴったりの家具が欲しい」「家族が集まる大きなテーブルが欲しい」「部屋の雰囲気に合う家具をつくりたい」<br><br>
+          そんな一人ひとりの想いを丁寧にお聞きし、素材選びからデザイン、製作、仕上げまで、心を込めて一つの家具をつくり上げます。<br><br>
+          長く使うほど愛着が深まる、そんな家具をお届けします。
+        </p>
+      </div>
+      <div class="photo"><img src="https://placehold.co/800x670/B08A5C/FBF8F1?text=Craftsman" alt="木材を手がける職人の写真"></div>
+    </div>
+  </section>
+
+  <section class="furniture" id="furniture">
+    <div class="wrap">
+      <div class="furniture-head">
+        <span class="eyebrow">OUR FURNITURE</span>
+        <h2 class="headline">暮らしに合わせた、さまざまな家具。</h2>
+      </div>
+      <div class="furniture-grid">
+        <div class="fcard">
+          <div class="photo"><img src="https://placehold.co/600x600/B08A5C/FBF8F1?text=TABLE" alt="ダイニングテーブルの写真"></div>
+          <h3>TABLE</h3>
+          <p>ダイニングテーブル・デスクなど、木の表情を楽しめる一枚を。</p>
+          <a class="more" onclick="switchView('table')">詳しく見る →</a>
+        </div>
+        <div class="fcard">
+          <div class="photo"><img src="https://placehold.co/600x600/7A5A38/FBF8F1?text=CABINET" alt="キャビネットの写真"></div>
+          <h3>CABINET</h3>
+          <p>収納するもの・設置場所に合わせて、使いやすさと美しさを両立した収納家具。</p>
+          <a class="more" onclick="switchView('cabinet')">詳しく見る →</a>
+        </div>
+        <div class="fcard">
+          <div class="photo"><img src="https://placehold.co/600x600/5C4127/FBF8F1?text=SHELF" alt="シェルフの写真"></div>
+          <h3>SHELF</h3>
+          <p>壁面や空間に合わせてサイズを細かく調整、暮らしに自然になじむオリジナルシェルフ。</p>
+          <a class="more" onclick="switchView('shelf')">詳しく見る →</a>
+        </div>
+        <div class="fcard">
+          <div class="photo"><img src="https://placehold.co/600x600/D8C3A0/2B2620?text=CHAIR" alt="チェアの写真"></div>
+          <h3>CHAIR</h3>
+          <p>座り心地や高さまでこだわった、毎日使いたくなる一脚。</p>
+          <a class="more" onclick="switchView('chair')">詳しく見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="material" id="material">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">MATERIAL</span>
+        <h2 class="headline">素材の個性を、<br>そのまま楽しむ。</h2>
+        <p class="lead">
+          木には、一つとして同じ表情がありません。<br>
+          木目、色合い、節、手触り、一枚一枚異なる素材の個性を見極めながら、家具として最も美しく生きる形を考えます。<br><br>
+          オーク、ウォールナット、チェリーなど、さまざまな樹種からお好みの素材をお選びいただけます。年月とともに色合いが変化していくことも、無垢材家具ならではの楽しみです。
+        </p>
+        <div class="swatches">
+          <div class="swatch"><div class="chip oak"></div><span>Oak / オーク</span></div>
+          <div class="swatch"><div class="chip walnut"></div><span>Walnut / ウォールナット</span></div>
+          <div class="swatch"><div class="chip cherry"></div><span>Cherry / チェリー</span></div>
+        </div>
+      </div>
+      <div class="photo light"><img src="https://placehold.co/800x670/D8C3A0/2B2620?text=Wood+Grain" alt="無垢材の木目の写真"></div>
+    </div>
+  </section>
+
+  <section class="flow" id="flow">
+    <div class="wrap">
+      <div class="flow-head">
+        <span class="eyebrow">ORDER FLOW</span>
+        <h2 class="headline">世界にひとつの家具ができるまで。</h2>
+      </div>
+      <div class="flow-steps">
+        <div class="fstep">
+          <div class="num">01</div>
+          <h4>ご相談</h4>
+          <p>まずは、どんな家具が欲しいのか、お気軽にご相談ください。サイズや用途、イメージなど、何でもお聞かせください。</p>
+        </div>
+        <div class="fstep">
+          <div class="num">02</div>
+          <h4>ヒアリング・採寸</h4>
+          <p>設置する場所や暮らし方を確認し、最適なサイズや仕様をご提案いたします。</p>
+        </div>
+        <div class="fstep">
+          <div class="num">03</div>
+          <h4>デザイン・お見積り</h4>
+          <p>素材やデザイン、仕上げなどを決定し、完成イメージとお見積りをご確認いただきます。</p>
+        </div>
+        <div class="fstep">
+          <div class="num">04</div>
+          <h4>製作</h4>
+          <p>職人が一つひとつ丁寧に製作します。細部までこだわり、長く使える家具に仕上げます。</p>
+        </div>
+        <div class="fstep">
+          <div class="num">05</div>
+          <h4>納品</h4>
+          <p>完成した家具を丁寧に配送。設置まで責任を持って行います。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="craft-works" id="works">
+    <div class="cw-grid">
+      <div class="photo cw-photo"><img src="https://placehold.co/600x800/B08A5C/FBF8F1?text=Handwork" alt="職人の手仕事の写真"></div>
+      <div class="cw-col">
+        <span class="eyebrow">CRAFTSMANSHIP</span>
+        <h3>一つひとつに、<br>職人の手仕事を。</h3>
+        <p>
+          機械だけでは生み出せない、細かなニュアンスや質感を大切にしています。木の性質を見極め、一つひとつ違う木目に向き合いながら仕上げていきます。<br><br>
+          目に見える部分だけでなく、引き出しの動きや接合部など、毎日触れるからこそ細部にもこだわります。<br><br>
+          「つくる」ことだけではなく、「長く使ってもらえるものをつくる」こと。それが、私たちの家具づくりです。
+        </p>
+        <a class="btn" onclick="switchView('home', 'works')">実績を見る →</a>
+      </div>
+      <div class="cw-col">
+        <span class="eyebrow">WORKS</span>
+        <h3>これまでに手がけた家具。</h3>
+        <p>ダイニングテーブル、キャビネット、チェア、造作家具まで。住まいと調和する素材とデザインで、あなたの暮らしにも寄り添う家具づくりをお約束します。</p>
+        <div class="works-thumbs">
+          <div class="photo"><img src="https://placehold.co/400x300/B08A5C/FBF8F1?text=Work1" alt="製作事例1"></div>
+          <div class="photo forest"><img src="https://placehold.co/400x300/28352A/FBF8F1?text=Work2" alt="製作事例2"></div>
+          <div class="photo light"><img src="https://placehold.co/400x300/D8C3A0/2B2620?text=Work3" alt="製作事例3"></div>
+          <div class="photo"><img src="https://placehold.co/400x300/7A5A38/FBF8F1?text=Work4" alt="製作事例4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="maintenance-contact" id="maintenance">
+    <div class="mc-grid">
+      <div class="mc-photo"><div class="photo light"><img src="https://placehold.co/800x600/D8C3A0/2B2620?text=Maintenance" alt="メンテナンス写真"></div></div>
+      <div class="mc-copy">
+        <span class="eyebrow">MAINTENANCE</span>
+        <h2 class="headline">長く使う家具だから、<br>これからも大切に。</h2>
+        <p>
+          家具は、使い続けることで少しずつ表情を変えていきます。傷や汚れ、メンテナンスについても、お気軽にご相談ください。<br><br>
+          購入して終わりではなく、何年、何十年も使い続けていただけるよう、家具のある暮らしを末永くサポートします。
+        </p>
+      </div>
+    </div>
+    <div class="mc-grid" id="contact">
+      <div class="mc-copy dark">
+        <span class="eyebrow">CONTACT</span>
+        <h2 class="headline">あなたの「こんな家具が欲しい」を<br>聞かせてください。</h2>
+        <p>
+          まだ具体的なイメージが固まっていなくても大丈夫です。<br>
+          「この場所に収納したい」「家族で使えるテーブルが欲しい」<br>
+          そんな小さなご相談から、理想の家具づくりを一緒に始めましょう。
+        </p>
+        <a class="btn on-dark" onclick="alert('お問い合わせフォームへ移動します（デモ）');">オーダー家具のご相談はこちら →</a>
+      </div>
+      <div class="mc-photo"><div class="photo"><img src="https://placehold.co/800x600/5C4127/FBF8F1?text=Contact" alt="お問い合わせイメージ"></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================== -->
+<!-- TABLE DETAIL VIEW (table.html) -->
+<!-- ========================================== -->
+<div id="view-table" class="detail-view">
+  <div class="detail-hero">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a onclick="switchView('home')">ホーム</a> <span>/</span> <a onclick="switchView('home', 'furniture')">家具の紹介</a> <span>/</span> <span>TABLE</span>
+      </div>
+      <span class="eyebrow" style="color:var(--wood-lt); border-color:rgba(255,255,255,0.3);">ORDER MADE TABLE</span>
+      <h1 class="serif text-4xl md:text-5xl font-bold tracking-wide mt-2 mb-4">無垢材のダイニングテーブル</h1>
+      <p class="text-stone-300 text-sm md:text-base max-w-2xl leading-relaxed">
+        家族が集まり、食事をし、語らい、時には仕事や勉強をする場所。年月を経て味わいを増す、世界に一枚だけの天板をお仕立てします。
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 bg-amber-50/50">
+    <div class="wrap">
+      <div class="tab-switcher">
+        <button class="tab-btn active" onclick="switchSubTab(this, 'table-desc')">こだわり・特徴</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'table-specs')">サイズ・価格目安</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'table-gallery')">ギャラリー</button>
+      </div>
+
+      <!-- Tab Content 1 -->
+      <div id="table-desc" class="sub-tab-content space-y-12">
+        <div class="split">
+          <div>
+            <span class="eyebrow">CRAFTSMANSHIP & WOOD</span>
+            <h2 class="headline">手触りと、永く使える強さを両立。</h2>
+            <p class="lead">
+              木目が最も美しく映える耳付きの一枚板から、ご指定のサイズにぴったり合わせた角材接ぎのテーブルまで幅広く対応しています。<br><br>
+              オイル仕上げを採用しているため、木の呼吸を妨げず、使い込むほどに深い艶と愛着が生まれます。万が一の輪ジミや深い傷も、ご自宅でサンドペーパーと専用オイルで簡単にお手入れしていただけます。
+            </p>
+          </div>
+          <div class="photo aspect-[6/5] rounded-sm"><img src="https://placehold.co/800x670/B08A5C/FBF8F1?text=Table+Detail" alt="テーブルの木目とディテール"></div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2 -->
+      <div id="table-specs" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">SPECIFICATIONS & PRICING</span>
+          <h2 class="headline">仕様と価格の目安</h2>
+          <p class="lead">ご希望の人数や間取りに合わせて、1cm単位でオーダーメイド製作いたします。</p>
+        </div>
+        <table class="spec-table bg-white">
+          <tr>
+            <th>対応樹種</th>
+            <td>ホワイトオーク、ウォールナット、ブラックチェリー、ホワイトアッシュ</td>
+          </tr>
+          <tr>
+            <th>サイズ目安</th>
+            <td>幅 1200〜2100mm × 奥行 800〜900mm × 高さ 700mm（オーダー可）</td>
+          </tr>
+          <tr>
+            <th>塗装仕上げ</th>
+            <td>天然植物オイル仕上げ（ウレタン仕上げへの変更も可能）</td>
+          </tr>
+          <tr>
+            <th>価格目安</th>
+            <td>￥160,000 〜 ￥380,000（税別） ※樹種やサイズにより異なります</td>
+          </tr>
+          <tr>
+            <th>納期</th>
+            <td>約 1.5ヶ月 〜 2ヶ月</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Tab Content 3 -->
+      <div id="table-gallery" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">GALLERY</span>
+          <h2 class="headline">製作事例ギャラリー</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/B08A5C/FBF8F1?text=Table+Ex.1" alt="事例1"></div>
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/7A5A38/FBF8F1?text=Table+Ex.2" alt="事例2"></div>
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/5C4127/FBF8F1?text=Table+Ex.3" alt="事例3"></div>
+        </div>
+      </div>
+
+      <div class="mt-20 pt-12 border-t border-stone-300 flex flex-wrap justify-between items-center gap-6">
+        <a class="btn" onclick="switchView('home')">← ホームに戻る</a>
+        <div class="flex gap-4">
+          <a class="btn" onclick="switchView('chair')">次の家具（チェア）を見る →</a>
+          <a class="btn bg-stone-900 text-white hover:bg-stone-800" onclick="switchView('home', 'contact')">この家具について相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================== -->
+<!-- CABINET DETAIL VIEW (cabinet.html) -->
+<!-- ========================================== -->
+<div id="view-cabinet" class="detail-view">
+  <div class="detail-hero">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a onclick="switchView('home')">ホーム</a> <span>/</span> <a onclick="switchView('home', 'furniture')">家具の紹介</a> <span>/</span> <span>CABINET</span>
+      </div>
+      <span class="eyebrow" style="color:var(--wood-lt); border-color:rgba(255,255,255,0.3);">ORDER MADE CABINET</span>
+      <h1 class="serif text-4xl md:text-5xl font-bold tracking-wide mt-2 mb-4">キャビネット・サイドボード</h1>
+      <p class="text-stone-300 text-sm md:text-base max-w-2xl leading-relaxed">
+        リビングの顔となる収納家具。美しい木目の扉、スムーズに引き出せる引き出しなど、機能美を追求したオーダーキャビネット。
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 bg-amber-50/50">
+    <div class="wrap">
+      <div class="tab-switcher">
+        <button class="tab-btn active" onclick="switchSubTab(this, 'cabinet-desc')">こだわり・特徴</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'cabinet-specs')">サイズ・価格目安</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'cabinet-gallery')">ギャラリー</button>
+      </div>
+
+      <div id="cabinet-desc" class="sub-tab-content space-y-12">
+        <div class="split">
+          <div>
+            <span class="eyebrow">DESIGN & FUNCTION</span>
+            <h2 class="headline">空間に美しく溶け込む、計算された収納力。</h2>
+            <p class="lead">
+              配線の逃がし加工や、内部の可動棚のピッチなど、収納する家電や食器のサイズに合わせて細部まで設計します。<br><br>
+              前面に繋ぎ目のない美しい木目を通す「通し木目」の技法を用いて、家具全体の佇まいに気品を持たせています。
+            </p>
+          </div>
+          <div class="photo aspect-[6/5] rounded-sm"><img src="https://placehold.co/800x670/7A5A38/FBF8F1?text=Cabinet+Detail" alt="キャビネット詳細"></div>
+        </div>
+      </div>
+
+      <div id="cabinet-specs" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">SPECIFICATIONS & PRICING</span>
+          <h2 class="headline">仕様と価格の目安</h2>
+        </div>
+        <table class="spec-table bg-white">
+          <tr>
+            <th>対応樹種</th>
+            <td>ウォールナット、ブラックチェリー、オーク等</td>
+          </tr>
+          <tr>
+            <th>サイズ目安</th>
+            <td>幅 900〜1800mm × 奥行 400〜450mm × 高さ 750〜850mm</td>
+          </tr>
+          <tr>
+            <th>価格目安</th>
+            <td>￥190,000 〜 ￥450,000（税別）</td>
+          </tr>
+          <tr>
+            <th>納期</th>
+            <td>約 2ヶ月</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="cabinet-gallery" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">GALLERY</span>
+          <h2 class="headline">製作事例ギャラリー</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/7A5A38/FBF8F1?text=Cabinet+Ex.1" alt="事例1"></div>
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/5C4127/FBF8F1?text=Cabinet+Ex.2" alt="事例2"></div>
+        </div>
+      </div>
+
+      <div class="mt-20 pt-12 border-t border-stone-300 flex flex-wrap justify-between items-center gap-6">
+        <a class="btn" onclick="switchView('home')">← ホームに戻る</a>
+        <div class="flex gap-4">
+          <a class="btn" onclick="switchView('shelf')">次の家具（シェルフ）を見る →</a>
+          <a class="btn bg-stone-900 text-white hover:bg-stone-800" onclick="switchView('home', 'contact')">この家具について相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================== -->
+<!-- SHELF DETAIL VIEW (shelf.html) -->
+<!-- ========================================== -->
+<div id="view-shelf" class="detail-view">
+  <div class="detail-hero">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a onclick="switchView('home')">ホーム</a> <span>/</span> <a onclick="switchView('home', 'furniture')">家具の紹介</a> <span>/</span> <span>SHELF</span>
+      </div>
+      <span class="eyebrow" style="color:var(--wood-lt); border-color:rgba(255,255,255,0.3);">ORDER MADE SHELF</span>
+      <h1 class="serif text-4xl md:text-5xl font-bold tracking-wide mt-2 mb-4">オリジナルシェルフ・本棚</h1>
+      <p class="text-stone-300 text-sm md:text-base max-w-2xl leading-relaxed">
+        壁一面のブックシェルフから、飾り棚まで。お部屋の寸法にミリ単位で合わせ、地震対策や耐荷重にも配慮した頑丈な棚。
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 bg-amber-50/50">
+    <div class="wrap">
+      <div class="tab-switcher">
+        <button class="tab-btn active" onclick="switchSubTab(this, 'shelf-desc')">こだわり・特徴</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'shelf-specs')">サイズ・価格目安</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'shelf-gallery')">ギャラリー</button>
+      </div>
+
+      <div id="shelf-desc" class="sub-tab-content space-y-12">
+        <div class="split">
+          <div>
+            <span class="eyebrow">STRENGTH & BEAUTY</span>
+            <h2 class="headline">本を詰め込んでもたわまない、強靭な棚板。</h2>
+            <p class="lead">
+              無垢材の厚みや内部の反り止め加工を工夫することで、重い辞書や本をたくさん並べても長年たわまない構造を実現しています。<br><br>
+              お部屋の梁やコンセントの位置を避けた、造り付けのような美しい納まりをご提案いたします。
+            </p>
+          </div>
+          <div class="photo aspect-[6/5] rounded-sm"><img src="https://placehold.co/800x670/5C4127/FBF8F1?text=Shelf+Detail" alt="シェルフ詳細"></div>
+        </div>
+      </div>
+
+      <div id="shelf-specs" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">SPECIFICATIONS & PRICING</span>
+          <h2 class="headline">仕様と価格の目安</h2>
+        </div>
+        <table class="spec-table bg-white">
+          <tr>
+            <th>対応樹種</th>
+            <td>オーク、タモ、ウォールナット</td>
+          </tr>
+          <tr>
+            <th>サイズ目安</th>
+            <td>ご要望の壁面寸法に完全オーダー対応</td>
+          </tr>
+          <tr>
+            <th>価格目安</th>
+            <td>￥120,000 〜 ￥350,000（税別）</td>
+          </tr>
+          <tr>
+            <th>納期</th>
+            <td>約 1.5ヶ月</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="shelf-gallery" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">GALLERY</span>
+          <h2 class="headline">製作事例ギャラリー</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/5C4127/FBF8F1?text=Shelf+Ex.1" alt="事例1"></div>
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/B08A5C/FBF8F1?text=Shelf+Ex.2" alt="事例2"></div>
+        </div>
+      </div>
+
+      <div class="mt-20 pt-12 border-t border-stone-300 flex flex-wrap justify-between items-center gap-6">
+        <a class="btn" onclick="switchView('home')">← ホームに戻る</a>
+        <div class="flex gap-4">
+          <a class="btn" onclick="switchView('chair')">次の家具（チェア）を見る →</a>
+          <a class="btn bg-stone-900 text-white hover:bg-stone-800" onclick="switchView('home', 'contact')">この家具について相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================== -->
+<!-- CHAIR DETAIL VIEW (chair.html) -->
+<!-- ========================================== -->
+<div id="view-chair" class="detail-view">
+  <div class="detail-hero">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a onclick="switchView('home')">ホーム</a> <span>/</span> <a onclick="switchView('home', 'furniture')">家具の紹介</a> <span>/</span> <span>CHAIR</span>
+      </div>
+      <span class="eyebrow" style="color:var(--wood-lt); border-color:rgba(255,255,255,0.3);">ORDER MADE CHAIR</span>
+      <h1 class="serif text-4xl md:text-5xl font-bold tracking-wide mt-2 mb-4">チェア・スツール</h1>
+      <p class="text-stone-300 text-sm md:text-base max-w-2xl leading-relaxed">
+        身体を優しく包み込む背もたれと、座り心地を追求した座面。毎日ふれるものだからこそ、極上のフィット感を。
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 bg-amber-50/50">
+    <div class="wrap">
+      <div class="tab-switcher">
+        <button class="tab-btn active" onclick="switchSubTab(this, 'chair-desc')">こだわり・特徴</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'chair-specs')">サイズ・価格目安</button>
+        <button class="tab-btn" onclick="switchSubTab(this, 'chair-gallery')">ギャラリー</button>
+      </div>
+
+      <div id="chair-desc" class="sub-tab-content space-y-12">
+        <div class="split">
+          <div>
+            <span class="eyebrow">ERGONOMICS & CRAFT</span>
+            <h2 class="headline">座った瞬間に違いがわかる、三次元の削り出し。</h2>
+            <p class="lead">
+              お尻の形状に優しくフィットする座グリ加工や、背中に自然に沿う曲げ木の技術など、職人の技が最も光るのがチェアづくりです。<br><br>
+              何時間座っても疲れない軽快な掛け心地と、ダイニングを美しく引き締める洗練されたフォルムを両立しています。
+            </p>
+          </div>
+          <div class="photo aspect-[6/5] rounded-sm"><img src="https://placehold.co/800x670/D8C3A0/2B2620?text=Chair+Detail" alt="チェア詳細"></div>
+        </div>
+      </div>
+
+      <div id="chair-specs" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">SPECIFICATIONS & PRICING</span>
+          <h2 class="headline">仕様と価格の目安</h2>
+        </div>
+        <table class="spec-table bg-white">
+          <tr>
+            <th>対応樹種</th>
+            <td>ウォールナット、オーク、チェリー</td>
+          </tr>
+          <tr>
+            <th>座面仕様</th>
+            <td>板座（削り出し） または 本革・ファブリック張り替え対応</td>
+          </tr>
+          <tr>
+            <th>価格目安</th>
+            <td>￥55,000 〜 ￥110,000（税別） / 1脚</td>
+          </tr>
+          <tr>
+            <th>納期</th>
+            <td>約 1ヶ月 〜 1.5ヶ月</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="chair-gallery" class="sub-tab-content hidden space-y-8">
+        <div>
+          <span class="eyebrow">GALLERY</span>
+          <h2 class="headline">製作事例ギャラリー</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/D8C3A0/2B2620?text=Chair+Ex.1" alt="事例1"></div>
+          <div class="photo gallery-item"><img src="https://placehold.co/600x450/B08A5C/FBF8F1?text=Chair+Ex.2" alt="事例2"></div>
+        </div>
+      </div>
+
+      <div class="mt-20 pt-12 border-t border-stone-300 flex flex-wrap justify-between items-center gap-6">
+        <a class="btn" onclick="switchView('home')">← ホームに戻る</a>
+        <div class="flex gap-4">
+          <a class="btn" onclick="switchView('table')">次の家具（テーブル）を見る →</a>
+          <a class="btn bg-stone-900 text-white hover:bg-stone-800" onclick="switchView('home', 'contact')">この家具について相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================== -->
+<!-- FOOTER -->
+<!-- ========================================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="logo" onclick="switchView('home')">
+        <span class="logo-mark">木</span>
+        <span class="logo-text">
+          <div class="ja">木の家具工房</div>
+          <div class="en">ORDER MADE FURNITURE</div>
+        </span>
+      </a>
+      <div class="foot-nav">
+        <ul>
+          <li><a onclick="switchView('home')">ホーム</a></li>
+          <li><a onclick="switchView('home', 'about')">私たちについて</a></li>
+          <li><a onclick="switchView('home', 'furniture')">家具の紹介</a></li>
+          <li><a onclick="switchView('home', 'material')">素材について</a></li>
+          <li><a onclick="switchView('home', 'flow')">製作の流れ</a></li>
+          <li><a onclick="switchView('home', 'works')">実績</a></li>
+          <li><a onclick="switchView('home', 'maintenance')">メンテナンス</a></li>
+          <li><a onclick="switchView('home', 'contact')">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 木の家具工房 All Rights Reserved.</span>
+      <div class="social">
+        <span>IG</span><span>X</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchView(viewId, targetAnchor) {
+    // Hide all main and detail views
+    const views = document.querySelectorAll('.main-view, .detail-view');
+    views.forEach(v => v.classList.remove('active'));
+
+    if (viewId === 'home') {
+      document.getElementById('view-home').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (targetAnchor) {
+        setTimeout(() => {
+          const el = document.getElementById(targetAnchor);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 150);
+      }
+    } else {
+      const targetView = document.getElementById('view-' + viewId);
+      if (targetView) {
+        targetView.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }
+
+  function switchSubTab(btnElement, contentId) {
+    // Find parent container of tabs
+    const container = btnElement.closest('.wrap');
+    if (!container) return;
+
+    // Remove active from sibling buttons
+    const buttons = container.querySelectorAll('.tab-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    // Hide sibling contents
+    const contents = container.querySelectorAll('.sub-tab-content');
+    contents.forEach(c => c.classList.add('hidden'));
+
+    // Show target content
+    const target = container.querySelector('#' + contentId);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+  }
+</script>
+
+</body>
+</html>

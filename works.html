@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>製作実績一覧 | 木の家具工房 | ORDER MADE FURNITURE</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Additional styles specific to the works page */
+  .works-hero {
+    padding: 80px 0 50px;
+    background: var(--cream-2);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .works-hero h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .works-hero p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 2;
+  }
+
+  /* Filter Navigation */
+  .filter-section {
+    padding: 40px 0 20px;
+    background: var(--cream);
+  }
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    padding: 10px 22px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* Works Catalog Grid */
+  .works-catalog {
+    padding: 40px 0 110px;
+    background: var(--cream);
+  }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .work-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .work-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(43,38,32,0.08);
+  }
+  .work-card .card-thumb {
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-card .card-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .work-card:hover .card-thumb img {
+    transform: scale(1.04);
+  }
+  .work-card .card-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(43,38,32,0.75);
+    color: var(--paper);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .work-card .card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .work-card h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .work-card .meta {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  .work-card p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .work-card .detail-link {
+    font-size: 12px;
+    letter-spacing: 0.05s;
+    color: var(--wood-dk);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 16, 10, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-container {
+    background: var(--paper);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+  .modal-overlay.open .modal-container {
+    transform: translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+  .modal-close:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .modal-photo {
+    position: relative;
+    min-height: 380px;
+  }
+  .modal-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .modal-content-area {
+    padding: 40px;
+  }
+  .modal-content-area .eyebrow {
+    margin-bottom: 12px;
+  }
+  .modal-content-area h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .spec-list {
+    margin: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+  .spec-item {
+    display: flex;
+    font-size: 12.5px;
+    margin-bottom: 8px;
+  }
+  .spec-item:last-child {
+    margin-bottom: 0;
+  }
+  .spec-label {
+    width: 90px;
+    color: var(--ink-faint);
+  }
+  .spec-value {
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .modal-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+
+  @media (max-width: 900px) {
+    .works-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .modal-body {
+      grid-template-columns: 1fr;
+    }
+    .modal-photo {
+      min-height: 260px;
+    }
+  }
+  @media (max-width: 600px) {
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+    .filter-buttons {
+      gap: 8px;
+    }
+    .filter-btn {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark"><img src="img/logo.svg" alt=""></span>
+      <span class="logo-text">
+        <div class="ja">木の家具工房</div>
+        <div class="en">ORDER MADE FURNITURE</div>
+      </span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#top">ホーム</a></li>
+        <li><a href="index.html#about">私たちについて</a></li>
+        <li><a href="index.html#furniture">家具の紹介</a></li>
+        <li><a href="index.html#material">素材について</a></li>
+        <li><a href="index.html#flow">製作の流れ</a></li>
+        <li><a href="works.html">実績</a></li>
+        <li><a href="index.html#maintenance">メンテナンス</a></li>
+        <li><a href="index.html#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+    <div class="menu-btn"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<section class="works-hero">
+  <div class="wrap">
+    <span class="eyebrow">WORKS</span>
+    <h1>製作実績一覧</h1>
+    <p>これまでに手掛けたオーダーメイド家具の数々をご紹介します。お客様のライフスタイルや空間に調和する、世界にひとつの家具の記録です。</p>
+  </div>
+</section>
+
+<section class="filter-section">
+  <div class="wrap">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">すべて</button>
+      <button class="filter-btn" data-filter="table">テーブル</button>
+      <button class="filter-btn" data-filter="cabinet">キャビネット</button>
+      <button class="filter-btn" data-filter="shelf">シェルフ</button>
+      <button class="filter-btn" data-filter="chair">チェア</button>
+      <button class="filter-btn" data-filter="counter">特注カウンター・造作</button>
+    </div>
+  </div>
+</section>
+
+<section class="works-catalog">
+  <div class="wrap">
+    <div class="works-grid" id="worksGrid">
+      
+      <!-- Work Card 1 -->
+      <div class="work-card" data-category="table" 
+           data-title="耳付き一枚板のオークダイニングテーブル" 
+           data-material="ホワイトオーク無垢材（自然オイル仕上げ）" 
+           data-size="W1800 × D850 × H700 mm" 
+           data-client="東京都 S様邸" 
+           data-desc="樹木の自然な輪郭（耳）をそのまま活かした、ダイナミックで温かみのあるダイニングテーブル。毎日ご家族が集まる中心として、経年変化による深い艶を楽しめる仕上がりになっています。" 
+           data-img="img/b.png">
+        <div class="card-thumb photo">
+          <span class="card-tag">TABLE</span>
+          <img src="img/b.png" alt="耳付き一枚板のオークダイニングテーブル" onerror="this.src='https://placehold.co/600x450/B08A5C/FBF8F1?text=Table'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>耳付き一枚板のオークダイニングテーブル</h3>
+            <div class="meta">ホワイトオーク / 東京都 S様邸</div>
+            <p>樹木の自然な輪郭を活かした、家族が集まる温かなダイニングテーブル。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+      <!-- Work Card 2 -->
+      <div class="work-card" data-category="cabinet" 
+           data-title="ウォールナット製 リビングローキャビネット" 
+           data-material="アメリカンウォールナット無垢材・突板" 
+           data-size="W1600 × D420 × H650 mm" 
+           data-client="神奈川県 K様邸" 
+           data-desc="落ち着いた色合いと美しい木目が特徴のウォールナットを使用したリビングボード。AV機器や小物をすっきりと収納しつつ、空間全体を引き締めるモダンな佇まいに仕上げました。" 
+           data-img="img/c.png">
+        <div class="card-thumb photo">
+          <span class="card-tag">CABINET</span>
+          <img src="img/c.png" alt="ウォールナット製 リビングローキャビネット" onerror="this.src='https://placehold.co/600x450/7C5A3C/FBF8F1?text=Cabinet'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>ウォールナット製 リビングローキャビネット</h3>
+            <div class="meta">ウォールナット / 神奈川県 K様邸</div>
+            <p>落ち着いた色合いでリビングを上質な雰囲気に演出するローボード。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+      <!-- Work Card 3 -->
+      <div class="work-card" data-category="shelf" 
+           data-title="壁面いっぱいのブックシェルフ" 
+           data-material="チェリー無垢材" 
+           data-size="W2400 × D300 × H2100 mm" 
+           data-client="埼玉県 M様邸" 
+           data-desc="お部屋の壁面サイズにミリ単位で合わせて設計した造作風のブックシェルフ。チェリー特有の使い込むほどに赤みを帯びる経年変化と、本が美しく並ぶ背板なしのデザインが特徴です。" 
+           data-img="img/d.png">
+        <div class="card-thumb photo">
+          <span class="card-tag">SHELF</span>
+          <img src="img/d.png" alt="壁面いっぱいのブックシェルフ" onerror="this.src='https://placehold.co/600x450/B87950/FBF8F1?text=Shelf'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>壁面いっぱいのブックシェルフ</h3>
+            <div class="meta">チェリー / 埼玉県 M様邸</div>
+            <p>空間のサイズに合わせてしつらえた、大容量かつ軽やかな印象の書棚。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+      <!-- Work Card 4 -->
+      <div class="work-card" data-category="chair" 
+           data-title="背中に沿う曲げ木のダイニングチェア" 
+           data-material="ホワイトオーク・座面ファブリック張り" 
+           data-size="W480 × D520 × H780 (SH420) mm" 
+           data-client="千葉県 T様邸" 
+           data-desc="長時間座っても疲れにくいよう、身体のラインに合わせた背もたれの曲げ木加工にこだわったチェア。職人が手仕事で丁寧に削り出したなめらかな手触りをお楽しみいただけます。" 
+           data-img="img/e.png">
+        <div class="card-thumb photo forest">
+          <span class="card-tag">CHAIR</span>
+          <img src="img/e.png" alt="背中に沿う曲げ木のダイニングチェア" onerror="this.src='https://placehold.co/600x450/28352A/FBF8F1?text=Chair'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>背中に沿う曲げ木のダイニングチェア</h3>
+            <div class="meta">ホワイトオーク / 千葉県 T様邸</div>
+            <p>身体をやさしく支える曲げ木技術と、毎日使いたくなる座り心地を追求。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+      <!-- Work Card 5 -->
+      <div class="work-card" data-category="counter" 
+           data-title="対面式キッチンカウンター収納" 
+           data-material="ナラ無垢材・真鍮金物" 
+           data-size="W2200 × D600 × H850 mm" 
+           data-client="東京都 H様邸" 
+           data-desc="キッチンの顔となる対面カウンターの下部を活用したオーダー収納。食器や調理家電のサイズに合わせ、引き出しやオープンスペースを綿密に割り付けて製作しました。" 
+           data-img="img/i.png">
+        <div class="card-thumb photo light">
+          <span class="card-tag">COUNTER</span>
+          <img src="img/i.png" alt="対面式キッチンカウンター収納" onerror="this.src='https://placehold.co/600x450/D8C3A0/2B2620?text=Counter'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>対面式キッチンカウンター収納</h3>
+            <div class="meta">ナラ / 東京都 H様邸</div>
+            <p>家事動線を快適にする、使い勝手とデザインを両立した特注カウンター。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+      <!-- Work Card 6 -->
+      <div class="work-card" data-category="table" 
+           data-title="コンパクトなワークデスク" 
+           data-material="ブラックチェリー無垢材" 
+           data-size="W1100 × D600 × H720 mm" 
+           data-client="神奈川県 Y様邸" 
+           data-desc="書斎やリビングの一角にすっきりと収まる、引き出し付きのシンプルデスク。コード配線孔や小物の整理トレーなど、日々のテレワークが快適になる工夫を凝らしています。" 
+           data-img="img/a.png">
+        <div class="card-thumb photo">
+          <span class="card-tag">TABLE</span>
+          <img src="img/a.png" alt="コンパクトなワークデスク" onerror="this.src='https://placehold.co/600x450/B08A5C/FBF8F1?text=Desk'">
+        </div>
+        <div class="card-body">
+          <div>
+            <h3>コンパクトなワークデスク</h3>
+            <div class="meta">ブラックチェリー / 神奈川県 Y様邸</div>
+            <p>暮らしに溶け込む、機能性と美しさを兼ね備えたリモートワーク用デスク。</p>
+          </div>
+          <span class="detail-link">詳細を見る →</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="workModal">
+  <div class="modal-container">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-body">
+      <div class="modal-photo photo" id="modalPhotoContainer">
+        <img id="modalImg" src="" alt="" onerror="this.src='https://placehold.co/600x450/B08A5C/FBF8F1?text=Works'">
+      </div>
+      <div class="modal-content-area">
+        <span class="eyebrow" id="modalCategoryTag">WORKS DETAIL</span>
+        <h2 id="modalTitle">タイトル</h2>
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">使用素材</span>
+            <span class="spec-value" id="modalMaterial">-</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">サイズ</span>
+            <span class="spec-value" id="modalSize">-</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">ご依頼主</span>
+            <span class="spec-value" id="modalClient">-</span>
+          </div>
+        </div>
+        <p class="modal-desc" id="modalDesc">詳細テキストがここに入ります。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="logo" href="index.html">
+        <span class="logo-mark"><img src="img/logo.svg" alt=""></span>
+        <span class="logo-text">
+          <div class="ja">木の家具工房</div>
+          <div class="en">ORDER MADE FURNITURE</div>
+        </span>
+      </a>
+      <div class="foot-nav">
+        <ul>
+          <li><a href="index.html#top">ホーム</a></li>
+          <li><a href="index.html#about">私たちについて</a></li>
+          <li><a href="index.html#furniture">家具の紹介</a></li>
+          <li><a href="index.html#material">素材について</a></li>
+          <li><a href="index.html#flow">製作の流れ</a></li>
+          <li><a href="works.html">実績</a></li>
+          <li><a href="index.html#maintenance">メンテナンス</a></li>
+          <li><a href="index.html#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 木の家具工房 All Rights Reserved.</span>
+      <div class="social">
+        <span>IG</span><span>X</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const workCards = document.querySelectorAll('.work-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        workCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('workModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMaterial = document.getElementById('modalMaterial');
+    const modalSize = document.getElementById('modalSize');
+    const modalClient = document.getElementById('modalClient');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalImg = document.getElementById('modalImg');
+    const modalCategoryTag = document.getElementById('modalCategoryTag');
+
+    workCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.getAttribute('data-title');
+        const material = card.getAttribute('data-material');
+        const size = card.getAttribute('data-size');
+        const client = card.getAttribute('data-client');
+        const desc = card.getAttribute('data-desc');
+        const img = card.getAttribute('data-img');
+        const category = card.getAttribute('data-category').toUpperCase();
+
+        modalTitle.textContent = title;
+        modalMaterial.textContent = material;
+        modalSize.textContent = size;
+        modalClient.textContent = client;
+        modalDesc.textContent = desc;
+        modalImg.src = img;
+        modalCategoryTag.textContent = 'WORKS / ' + category;
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      document.body.style.overflow = 'auto';
+    };
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
